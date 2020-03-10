@@ -33,8 +33,8 @@ Example:
 
     from class_property import class_value
 
-    @class_value.decorate
-    class MyClass(object):
+    # doesn't matter if class_value.decorate, class_property.decorate, or decorate (same with metaclass)
+    class MyClass(object, metaclass=class_value.metaclass()):
         value = class_value(1)
 
     mc = MyClass()
@@ -90,7 +90,8 @@ Example:
         GLOB = value
 
     # doesn't matter if class_value.decorate, class_property.decorate, or decorate (same with metaclass)
-    class MyClass(object, metaclass=metaclass()):
+    @decorate
+    class MyClass(object):
         _VALUE = None
 
         @class_property
