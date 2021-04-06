@@ -37,14 +37,33 @@ def test_class_value():
     assert SubClass.hello == 'John Doe'
 
     sub.value = 7
-    assert SubClass.value == 7
-    assert sub.value == 7
-    assert mc.value == 7
-    assert MyClass.value == 7
+    assert SubClass.value == 7, SubClass.value
+    assert sub.value == 7, sub.value
+    assert mc.value == 7, mc.value
+    assert MyClass.value == 7, MyClass.value
+
+
+def test_class_value_inhertance():
+    from class_property import class_value
+
+    class MyClass(object, metaclass=class_value.metaclass()):
+        value = class_value(1)
+
+    class SubClass(MyClass):
+        value = 2
+
+    mc = MyClass
+    sub = SubClass()
+    sub.value = 7
+    assert SubClass.value == 7, SubClass.value
+    assert sub.value == 7, sub.value
+    assert mc.value == 7, mc.value
+    assert MyClass.value == 7, MyClass.value
 
 
 if __name__ == '__main__':
     test_import()
     test_class_value()
+    test_class_value_inhertance()
 
     print('All tests finished successfully!')
